@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SmartSwing-NH  ·  Daily 15:00 Telegram Alert
+SmartSwing-SEC  ·  Daily 15:00 Telegram Alert
 ────────────────────────────────────────────
 • 평일(월~금) 15:00 KST 실행 (T-0 당일 현재가 기준 실제 신호)
 • pykrx로 당일 현재가·RSI-2·ADX 수집 → 전략 규칙 적용 → Telegram 발송
@@ -276,7 +276,7 @@ def build_message(today, signals, exits, signal_date, kpi_data=None,
         price_basis += " ⚠ 일부 T-1 fallback"
 
     lines = [
-        f"📊 <b>SmartSwing-NH</b>  <code>{date_str}  {time_str}</code>",
+        f"📊 <b>SmartSwing-SEC</b>  <code>{date_str}  {time_str}</code>",
         f"<i>기준: {price_basis}</i>",
         "",
     ]
@@ -406,7 +406,7 @@ def check_pat_expiry_alert(today: datetime.datetime):
     text = "\n".join([
         f"{emoji} <b>GitHub PAT 만료 경고</b>",
         f"",
-        f"SmartSwing-NH Actions 토큰이 곧 만료됩니다.",
+        f"SmartSwing-SEC Actions 토큰이 곧 만료됩니다.",
         f"",
         f"⏳ 만료일: <code>{PAT_EXPIRY_DATE}</code>",
         f"📅 오늘:   <code>{today.date()}</code>",
@@ -446,7 +446,7 @@ def send_telegram(text: str):
 # ─────────────────────────────────────────────
 def main():
     today = get_today_kst()
-    print(f"[{today.isoformat()}] SmartSwing-NH 실시간 알림 실행")
+    print(f"[{today.isoformat()}] SmartSwing-SEC 실시간 알림 실행")
 
     force = bool(os.environ.get("FORCE_RUN"))
     if not is_trading_day(today) and not force:
