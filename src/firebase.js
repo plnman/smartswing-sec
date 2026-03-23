@@ -16,13 +16,13 @@ import { getFirestore } from "firebase/firestore";
 
 // ⚠️  아래 값을 새 Firebase 프로젝트의 실제 config로 교체하세요
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId:             "YOUR_APP_ID",
-  measurementId:     "YOUR_MEASUREMENT_ID",
+  apiKey:            "AIzaSyAISwICYGC5cz28ooZegsUIT8kl0TCCI74",
+  authDomain:        "smartswing-sec.firebaseapp.com",
+  projectId:         "smartswing-sec",
+  storageBucket:     "smartswing-sec.firebasestorage.app",
+  messagingSenderId: "49740233538",
+  appId:             "1:49740233538:web:d11eced90fe933123c26db",
+  measurementId:     "G-LXL3WPH774",
 };
 
 const app = initializeApp(firebaseConfig);
