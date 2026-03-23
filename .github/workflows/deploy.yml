@@ -16,7 +16,6 @@ permissions:
   pages:    write
   id-token: write
 
-# 동시 배포 방지 (진행 중 배포 있으면 대기, 오래된 것은 취소)
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -58,3 +57,39 @@ jobs:
       - name: GitHub Pages 배포
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify:
+    name: "📨 배포 완료 Telegram 알림"
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Telegram 알림 전송
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          DEPLOY_STATUS: ${{ needs.deploy.result }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, requests
+          token   = os.environ["BOT_TOKEN"]
+          chat_id = os.environ["CHAT_ID"]
+          status  = os.environ["DEPLOY_STATUS"]
+          sha     = os.environ["GITHUB_SHA"][:7]
+          actor   = os.environ["GITHUB_ACTOR"]
+          icon = "✅" if status == "success" else "❌"
+          msg = (
+              f"{icon} <b>SmartSwing-SEC 배포 {status.upper()}</b>\n\n"
+              f"🔗 https://plnman.github.io/smartswing-sec/\n"
+              f"📝 커밋: <code>{sha}</code>\n"
+              f"👤 작성자: {actor}"
+          )
+          r = requests.post(
+              f"https://api.telegram.org/bot{token}/sendMessage",
+              json={"chat_id": chat_id, "text": msg, "parse_mode": "HTML"},
+              timeout=15
+          )
+          print(r.status_code, r.text)
+          PYEOF
