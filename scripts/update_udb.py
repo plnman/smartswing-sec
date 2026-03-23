@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SmartSwing-NH  ·  15:40 KST — Firebase UDB 월간 데이터 업데이트
+SmartSwing-SEC  ·  15:40 KST — Firebase UDB 월간 데이터 업데이트
 ────────────────────────────────────────────────────────────────
 • 매월 마지막 거래일 15:40 KST 실행 (GitHub Actions cron: 40 6 * * 1-5)
 • pykrx로 당일 종가 + ATR 14 수집 → Firebase /udb/{yy-mm} 저장
@@ -371,7 +371,7 @@ def check_pipeline_health(doc_data: dict, firebase_ok: bool = True):
 # ─────────────────────────────────────────────
 def main():
     today = get_today_kst()
-    print(f"[{today.isoformat()}] SmartSwing-NH UDB 업데이트 실행")
+    print(f"[{today.isoformat()}] SmartSwing-SEC UDB 업데이트 실행")
 
     force = bool(os.environ.get("FORCE_RUN"))
 
